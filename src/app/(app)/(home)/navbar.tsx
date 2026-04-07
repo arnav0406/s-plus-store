@@ -104,9 +104,8 @@ export const Navbar = () =>{
                 className="size-12 border-transparent bg-white"
                 onClick={()=>setIsSidebarOpen(true)}
                 >
-                    <MenuIcon/>
+                <MenuIcon/>
                 </Button>
-
             </div>
         </nav>
     );
