@@ -2,15 +2,16 @@
 
 import { useEffect, useRef, useState } from "react";
 import { CategoryDropdown } from "./category-dropdown";
-import { CustomCategory } from "./types";
+
 import { useParams } from "next/navigation";
 import { ListFilterIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { CategoriesSidebar } from "./categories-sidebar";
+import { CategoriesGetManyOutput } from "@/modules/categories/types";
 
 interface Props {
-    data: CustomCategory[];
+    data: CategoriesGetManyOutput;
 };
 export const Categories = ({
     data
@@ -70,7 +71,7 @@ export const Categories = ({
             <CategoriesSidebar
                 open={isSidebarOpen}
                 onOpenChange={setIsSidebarOpen}
-                data={data} />
+            />
 
             {/* Hidden div to measure all items */}
             <div
