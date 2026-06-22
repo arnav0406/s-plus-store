@@ -10,7 +10,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useTRPC } from "@/trpc/client";
 import { useQuery } from "@tanstack/react-query";
-import { CategoriesGetManyOutput, CategoriesGetManyOutputSingle } from "@/modules/categories/types";
+import { CategoriesGetManyOutput } from "@/modules/categories/types";
 
 interface Props {
     open: boolean;
