@@ -38,7 +38,8 @@ export const SignInView = () => {
         onError: (error) => {
             toast.error(error.message);
         },
-        onSuccess: () => {
+        onSuccess: async () => {
+            await queryClient.invalidateQueries(trpc.auth.session.queryFilter());
             router.push("/");
         },
     }));
@@ -131,7 +132,6 @@ export const SignInView = () => {
                     backgroundSize: "cover",
                     backgroundPosition: "center",
                 }}>
-                Background Column
             </div>
         </div>
     )

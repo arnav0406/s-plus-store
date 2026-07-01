@@ -39,7 +39,8 @@ export const SignUpView = () => {
         onError: (error) => {
             toast.error(error.message);
         },
-        onSuccess: () => {
+        onSuccess: async () => {
+            await queryClient.invalidateQueries(trpc.auth.session.queryFilter());
             router.push("/");
         },
     }));
