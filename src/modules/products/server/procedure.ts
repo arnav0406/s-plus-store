@@ -1,9 +1,10 @@
 import { Category } from "@/payload-types";
 import { baseProcedure, createTRPCRouter } from "@/trpc/init";
 import { NumberFieldInput } from "@base-ui/react";
-import type { Where } from "payload";
+import type { Sort, Where } from "payload";
 import { createGzip } from "zlib";
 import z from "zod";
+import { sortValues } from "../search-params";
 export const productsRouter = createTRPCRouter({
     getMany: baseProcedure
         .input(
@@ -11,19 +12,37 @@ export const productsRouter = createTRPCRouter({
                 category: z.string().nullable().optional(),
                 minPrice: z.string().nullable().optional(),
                 maxPrice: z.string().nullable().optional(),
+                tags: z.array(z.string()).nullable().optional(),
+                sort: z.enum(sortValues).nullable().optional(),
             }),
         )
         .query(async ({ ctx, input }) => {
 
             const where: Where = {};
+            let sort: Sort = "-createdAt";
 
-            if (input.minPrice) {
+            if (input.sort === "curated") {
+                sort = "-createdAt";
+            }
+
+            if (input.sort === "hot_and_new") {
+                sort = "+createdAt";
+            }
+
+            if (input.sort === "trending") {
+                sort = "-createdAt";
+            }
+
+            if (input.minPrice && input.maxPrice) {
+                where.price = {
+                    greater_than_equal: input.minPrice,
+                    less_than_equal: input.maxPrice,
+                }
+            } else if (input.minPrice) {
                 where.price = {
                     greater_than_equal: input.minPrice
                 }
-            }
-
-            if (input.maxPrice) {
+            } else if (input.maxPrice) {
                 where.price = {
                     less_than_equal: input.maxPrice
                 }
@@ -63,7 +82,11 @@ export const productsRouter = createTRPCRouter({
                         in: [parentCategory.slug, ...subcategoriesSlugs]
                     }
                 }
-
+            }
+            if (input.tags && input.tags.length > 0) {
+                where["tags.name"] = {
+                    in: input.tags,
+                };
             }
             const data = await ctx.db.find({
                 collection: "products",
