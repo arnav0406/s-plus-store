@@ -23,7 +23,6 @@ export const CategoryDropdown = ({
     const [isOpen, setIsOpen] = useState(false);
 
     const dropdownRef = useRef<HTMLDivElement>(null);
-    const { getDropdownPosition } = useDropdownPosition(dropdownRef);
 
     const onMouseEnter = () => {
         if (category.subcategories) {
@@ -69,7 +68,6 @@ export const CategoryDropdown = ({
             <SubcategoryMenu
                 category={category}
                 isOpen={isOpen}
-                position={getDropdownPosition()}
             />
         </div>
     );
