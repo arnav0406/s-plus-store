@@ -45,5 +45,6 @@ export const Products: CollectionConfig = {
             defaultValue: "30-day",
         },
 
+
     ],
 }
