@@ -7,6 +7,17 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { ShoppingCartIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import dynamic from "next/dynamic";
+const CheckoutButton = dynamic(
+    () =>
+        import("@/modules/checkout/ui/components/checkout-button").then(
+            (mod) => mod.CheckoutButton,
+        ),
+    {
+        ssr: false,
+        loading: () => <Button disabled className="bg-white"><ShoppingCartIcon className="text-black" /> 0</Button>
+    }
+);
 
 interface Props {
     slug: string;
@@ -33,7 +44,9 @@ export const Navbar = ({ slug }: Props) => {
                     )}
                     <p className="text-xl">{data.name}</p>
                 </Link>
-                <p className="text-xl">{data.name}</p>
+                <CheckoutButton
+                    tenantSlug={slug}
+                />
             </div>
         </nav>
     );
