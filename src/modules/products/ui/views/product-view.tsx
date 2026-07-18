@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button";
 import { LinkIcon, StarIcon } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
 import { Fragment } from "react/jsx-runtime";
-// import { CartButton } from "../components/cart-button";
+
 import dynamic from "next/dynamic";
 
 const CartButton = dynamic(
@@ -115,6 +115,7 @@ export const ProductView = ({
                             <div className="flex flex-col gap-4 p-6 border-b">
                                 <div className="flex flex-row items-center gap-2">
                                     <CartButton
+                                        isPurchased={data.isPurchased}
                                         tenantSlug={tenantSlug}
                                         productId={productId}
                                     />
