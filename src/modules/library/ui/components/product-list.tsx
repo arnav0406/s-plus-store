@@ -50,8 +50,8 @@ export const ProductList = () => {
                         imageUrl={product.image?.url}
                         tenantSlug={product.tenant?.slug}
                         tenantImageUrl={product.tenant?.image?.url}
-                        reviewRating={4.6}
-                        reviewCount={12} />
+                        reviewRating={product.reviewRating}
+                        reviewCount={product.reviewCount} />
                 ))}
             </div>
             <div className="flex justify-center pt-8">
