@@ -12,6 +12,7 @@ export const Products: CollectionConfig = {
 
             return Boolean(tenant?.stripeDetailsSubmitted);
         },
+        delete: ({ req }) => isSuperAdmin(req.user),
     },
     admin: {
         useAsTitle: "name",
