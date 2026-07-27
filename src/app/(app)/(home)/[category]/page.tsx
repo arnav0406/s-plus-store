@@ -12,6 +12,7 @@ interface Props {
     searchParams: Promise<SearchParams>;
 };
 
+export const dynamic = "force-dynamic";
 
 const Page = async ({ params, searchParams }: Props) => {
 
@@ -25,7 +26,10 @@ const Page = async ({ params, searchParams }: Props) => {
             ...filters,
             category,
             limit: DEFAULT_LIMIT,
-        })
+        },
+            {
+                getNextPageParam: (lastPage) => lastPage.docs.length > 0 ? lastPage.nextPage : undefined,
+            })
     );
 
     return (

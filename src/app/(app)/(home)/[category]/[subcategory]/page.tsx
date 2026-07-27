@@ -25,6 +25,8 @@ const Page = async ({ params, searchParams }: Props) => {
         ...filters,
         category: subcategory,
         limit: DEFAULT_LIMIT,
+    }, {
+        getNextPageParam: (lastPage) => lastPage.docs.length > 0 ? lastPage.nextPage : undefined,
     }));
 
     return (

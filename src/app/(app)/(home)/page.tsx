@@ -20,7 +20,11 @@ const Page = async ({ searchParams }: Props) => {
     trpc.products.getMany.infiniteQueryOptions({
       ...filters,
       limit: DEFAULT_LIMIT,
-    })
+
+    },
+      {
+        getNextPageParam: (lastPage) => lastPage.docs.length > 0 ? lastPage.nextPage : undefined,
+      })
   );
 
   return (

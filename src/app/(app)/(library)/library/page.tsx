@@ -11,7 +11,10 @@ const Page = async () => {
     const queryClient = getQueryClient();
     void queryClient.prefetchInfiniteQuery(trpc.library.getMany.infiniteQueryOptions({
         limit: DEFAULT_LIMIT,
-    }));
+    },
+        {
+            getNextPageParam: (lastPage) => lastPage.docs.length > 0 ? lastPage.nextPage : undefined,
+        }));
 
     return (
         <HydrationBoundary state={dehydrate(queryClient)}>

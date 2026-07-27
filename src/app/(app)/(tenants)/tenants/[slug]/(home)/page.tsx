@@ -12,6 +12,8 @@ interface Props {
     params: Promise<{ slug: string }>;
 };
 
+export const dynamic = "force-dynamic";
+
 const Page = async ({ params, searchParams }: Props) => {
     const { slug } = await params;
     const filters = await loadProductFilters(searchParams);
@@ -21,7 +23,10 @@ const Page = async ({ params, searchParams }: Props) => {
         ...filters,
         tenantSlug: slug,
         limit: DEFAULT_LIMIT,
-    }));
+    },
+        {
+            getNextPageParam: (lastPage) => lastPage.docs.length > 0 ? lastPage.nextPage : undefined,
+        }));
 
     return (
         <HydrationBoundary state={dehydrate(queryClient)}>
