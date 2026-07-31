@@ -33,7 +33,7 @@ export const Products: CollectionConfig = {
             type: "number",
             required: true,
             admin: {
-                description: "Price in USD"
+                description: "Price in INR"
             }
         },
         {

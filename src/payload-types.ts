@@ -173,11 +173,11 @@ export interface User {
 export interface Tenant {
   id: string;
   /**
-   * This is the name of the store (e.g. Antonio's Store)
+   * This is the name of the store (e.g. Arnav's Store)
    */
   name: string;
   /**
-   * This is the subdomain for the store (e.g. [slug].funroad.com)
+   * This is the subdomain for the store (e.g. [slug].s+store.com)
    */
   slug: string;
   image?: (string | null) | Media;
@@ -255,7 +255,7 @@ export interface Product {
     [k: string]: unknown;
   } | null;
   /**
-   * Price in USD
+   * Price in INR
    */
   price: number;
   category?: (string | null) | Category;

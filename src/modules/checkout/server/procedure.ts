@@ -130,7 +130,7 @@ export const checkoutRouter = createTRPCRouter({
                     quantity: 1,
                     price_data: {
                         unit_amount: product.price * 100, // Stripe handles prices in cents
-                        currency: "usd",
+                        currency: "inr",
                         product_data: {
                             name: product.name,
                             metadata: {
