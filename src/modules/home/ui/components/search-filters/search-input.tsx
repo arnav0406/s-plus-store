@@ -1,5 +1,3 @@
-"use client"
-
 
 import { Input } from "@/components/ui/input";
 import { BookmarkCheckIcon, ListFilterIcon, SearchIcon } from "lucide-react";
@@ -9,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { useTRPC } from "@/trpc/client";
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
+import { useProductFilters } from "@/modules/products/hooks/use-product-filters";
 
 
 
@@ -25,7 +24,6 @@ export const SearchInput = ({
     onChange
 
 }: Props) => {
-
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [searchValue, setSearchValue] = useState(defaultValue || "");
 
@@ -46,7 +44,11 @@ export const SearchInput = ({
             <CategoriesSidebar open={isSidebarOpen} onOpenChange={setIsSidebarOpen} />
             <div className="relative w-full">
                 <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-neutral-500" />
-                <Input className="pl-8" placeholder="Search Products" disabled={disabled} value={searchValue} onChange={(e) => setSearchValue(e.target.value)} />
+                <Input className="pl-8"
+                    placeholder="Search Products"
+                    disabled={disabled}
+                    value={searchValue}
+                    onChange={(e) => setSearchValue(e.target.value)} />
 
             </div>
             <Button
