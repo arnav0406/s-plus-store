@@ -5,7 +5,7 @@ import type { Sort, Where } from "payload";
 import { createGzip } from "zlib";
 import { headers as getHeaders } from "next/headers";
 import z from "zod";
-import { sortValues } from "../search-params";
+import { sortValues } from "../sort";
 import { DEFAULT_LIMIT } from "@/constants";
 import { TRPCError } from "@trpc/server";
 export const productsRouter = createTRPCRouter({
@@ -140,16 +140,16 @@ export const productsRouter = createTRPCRouter({
             };
             let sort: Sort = "-createdAt";
 
-            if (input.sort === "curated") {
+            if (input.sort === "newest") {
                 sort = "-createdAt";
             }
 
-            if (input.sort === "hot_and_new") {
-                sort = "+createdAt";
+            if (input.sort === "price_asc") {
+                sort = "price";
             }
 
-            if (input.sort === "trending") {
-                sort = "-createdAt";
+            if (input.sort === "price_desc") {
+                sort = "-price";
             }
 
             if (input.minPrice && input.maxPrice) {

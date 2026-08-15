@@ -1,6 +1,6 @@
 import { useQueryStates, parseAsArrayOf, parseAsString, parseAsStringLiteral } from "nuqs";
 
-const sortValues = ["curated", "trending", "hot_and_new"] as const;
+import { DEFAULT_SORT, sortValues } from "../sort";
 
 const params = {
     search: parseAsString
@@ -9,7 +9,7 @@ const params = {
         })
         .withDefault(""),
 
-    sort: parseAsStringLiteral(sortValues).withDefault("curated"),
+    sort: parseAsStringLiteral(sortValues).withDefault(DEFAULT_SORT),
     minPrice: parseAsString.withOptions({
         clearOnDefault: true,
     })
