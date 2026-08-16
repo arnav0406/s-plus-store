@@ -199,19 +199,3 @@ A few decisions worth calling out:
 
 **Images declare their layout size.** `next/image` with `fill` and no `sizes` defaults to `100vw`, so a 300px product card was downloading the 3840px variant.
 
-## Known limitations
-
-Being honest about what this isn't:
-
-- **No test suite.** The next thing I'd add, starting with the webhook and checkout gating.
-- **No CI/CD** beyond Vercel's build.
-- **Sorting is by date and price only.** "Trending" would need order-velocity data the schema doesn't collect yet.
-- **No rate limiting** on auth endpoints.
-- **Connected accounts are created with `country: 'US'`** while pricing is in INR — fine in test mode, would need resolving before real transactions.
-- **Fulfilment is not idempotent yet.** A Stripe webhook retry after a partial failure could duplicate order rows.
-
-## Attribution
-
-The foundation of this project came from following Code With Antonio's multi-vendor marketplace tutorial, which I used to learn Payload CMS, tRPC and Stripe Connect. What I did beyond that was deploy it and make it work in production along with the data seeding, query and navigation performance work, and the fixes listed above.
-
-I'd rather say that plainly than have someone recognise the architecture and wonder what else I was vague about.
