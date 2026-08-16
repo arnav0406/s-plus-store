@@ -51,6 +51,8 @@ export const ProductView = ({
                         src={data.cover?.url || "/placeholder.png"}
                         alt={data.name}
                         fill
+                        priority
+                        sizes="100vw"
                         className="object-cover"
                     />
                 </div>
@@ -195,6 +197,7 @@ export const ProductViewSkeleton = () => {
                         src={"/placeholder.png"}
                         alt="Placeholder"
                         fill
+                        sizes="100vw"
                         className="object-cover"
                     />
                 </div>
