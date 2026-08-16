@@ -239,28 +239,45 @@ export const productsRouter = createTRPCRouter({
                     content: false,
                 }
             });
-            const dataWithSummarizedReviews = await Promise.all(
-                data.docs.map(async (doc) => {
-                    const reviewsData = await ctx.db.find({
-                        collection: "reviews",
-                        pagination: false,
-                        where: {
-                            product: {
-                                equals: doc.id,
-                            },
-                        },
-                    });
+            // One query for every product on the page, instead of one query per
+            // product. depth: 0 keeps `review.product` as an id string rather than
+            // populating the whole Product document back again.
+            const reviewsData = await ctx.db.find({
+                collection: "reviews",
+                depth: 0,
+                pagination: false,
+                where: {
+                    product: {
+                        in: data.docs.map((doc) => doc.id),
+                    },
+                },
+            });
 
-                    return {
-                        ...doc,
-                        reviewCount: reviewsData.totalDocs,
-                        reviewRating:
-                            reviewsData.docs.length === 0
-                                ? 0
-                                : reviewsData.docs.reduce((acc, review) => acc + review.rating, 0) / reviewsData.totalDocs
-                    }
-                })
-            );
+            const ratingsByProduct = new Map<string, number[]>();
+
+            for (const review of reviewsData.docs) {
+                const productId = String(review.product);
+                const ratings = ratingsByProduct.get(productId);
+
+                if (ratings) {
+                    ratings.push(review.rating);
+                } else {
+                    ratingsByProduct.set(productId, [review.rating]);
+                }
+            }
+
+            const dataWithSummarizedReviews = data.docs.map((doc) => {
+                const ratings = ratingsByProduct.get(String(doc.id)) ?? [];
+
+                return {
+                    ...doc,
+                    reviewCount: ratings.length,
+                    reviewRating:
+                        ratings.length === 0
+                            ? 0
+                            : ratings.reduce((acc, rating) => acc + rating, 0) / ratings.length,
+                };
+            });
 
             return {
                 ...data,
