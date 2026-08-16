@@ -8,18 +8,32 @@ A multi-tenant digital products marketplace. Sellers onboard through Stripe Conn
 
 ---
 
-![Storefront](docs/screenshots/storefront.png)
+![S+ Store storefront](docs/screenshots/storefront.png)
 
-<table>
-  <tr>
-    <td><img src="docs/screenshots/product-detail.png" alt="Product detail" /></td>
-    <td><img src="docs/screenshots/checkout.png" alt="Checkout" /></td>
-  </tr>
-  <tr>
-    <td><img src="docs/screenshots/seller-admin.png" alt="Seller admin" /></td>
-    <td><img src="docs/screenshots/library.png" alt="Library" /></td>
-  </tr>
-</table>
+<p align="center"><em>Storefront — category browsing, filters, and sort across every seller</em></p>
+
+<details>
+<summary><b>More screenshots</b> — product page, checkout, seller admin, library</summary>
+
+<br />
+
+**Product page** — cover image, pricing, refund policy, and rating distribution
+
+![Product detail](docs/screenshots/product-detail.png)
+
+**Checkout** — per-seller cart with running total, before handoff to Stripe
+
+![Checkout](docs/screenshots/checkout.png)
+
+**Seller admin** — Payload panel, scoped so each tenant sees only their own products
+
+![Seller admin](docs/screenshots/seller-admin.png)
+
+**Library** — purchased products with access to gated content
+
+![Library](docs/screenshots/library.png)
+
+</details>
 
 ---
 
